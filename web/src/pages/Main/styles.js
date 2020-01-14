@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 
 export const Container = styled.div`
   max-width: 700px;
@@ -35,7 +35,19 @@ export const Form = styled.form`
   }
 `;
 
-export const SubmitButton = styled.button`
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
+export const SubmitButton = styled.button.attrs(props => ({
+  disabled: props.loading,
+}))`
   background: #fff;
   border-width: 1px;
   border-color: #7159c1;
@@ -48,6 +60,54 @@ export const SubmitButton = styled.button`
   align-items: center;
   height: 35px;
   color: #7159c1;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+
+  :hover{
+    border: none;
+    background: #7159c1;
+    color: #fff;
+  }
+
+  &[disabled] {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  ${props =>
+    props.loading &&
+    css`
+      svg {
+        animation: ${rotate} 2s linear infinite;
+      }
+    `}
+`;
+
+export const List = styled.ul`
+  list-style: none;
+  margin-top: 30px;
+
+  li {
+    padding: 15px 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    & + li {
+      border-top: 2px solid #eee;
+    }
+
+    a {
+      color: #7159c1;
+      text-decoration: none;
+    }
+  }
+`;
+
+export const EmptyUsers = styled.strong`
+  margin-left: 150px;
+  color: #000;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;
 `;
