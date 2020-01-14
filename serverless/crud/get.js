@@ -17,7 +17,8 @@ module.exports.get = (event, context, callback) => {
             return callback(null, {
                 statusCode: 400,
                 headers: {
-                    'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*',
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
                     'Access-Control-Allow-Credentials': true,
                 },
                 body: { error: 'Error in get user.' }
@@ -27,6 +28,11 @@ module.exports.get = (event, context, callback) => {
         return callback(null, {
             statusCode: 200,
             body: JSON.stringify(result.Item),
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': true,
+            }
         });
     });
 };
