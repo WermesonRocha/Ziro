@@ -1,6 +1,4 @@
-// Keyframes e o css são usados para fazer as animações nos styled components
-// props => props.loading && css faz a verificação se está carregando pra adicionar o movimento
-import styled, { keyframes, css } from 'styled-components';
+import styled from 'styled-components';
 
 export const Container = styled.div`
   max-width: 700px;
@@ -37,21 +35,10 @@ export const Form = styled.form`
   }
 `;
 
-const rotate = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-`;
-
-export const SubmitButton = styled.button.attrs(props => ({
-  disabled: props.loading,
-}))`
-  background: #7159c1;
-  border: 0;
+export const SubmitButton = styled.button`
+  background: #fff;
+  border-width: 1px;
+  border-color: #7159c1;
   padding: 0 15px;
   margin-left: 10px;
   margin-top: 10px;
@@ -59,50 +46,8 @@ export const SubmitButton = styled.button.attrs(props => ({
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 30px;
-  color: #fff;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 16px;
-
-  &[disabled] {
-    cursor: not-allowed;
-    opacity: 0.6;
-  }
-
-  ${props =>
-    props.loading &&
-    css`
-      svg {
-        animation: ${rotate} 2s linear infinite;
-      }
-    `}
-`;
-
-export const List = styled.ul`
-  list-style: none;
-  margin-top: 30px;
-
-  li {
-    padding: 15px 0;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-
-    & + li {
-      border-top: 2px solid #eee;
-    }
-
-    a {
-      color: #7159c1;
-      text-decoration: none;
-    }
-  }
-`;
-
-export const EmptyUsers = styled.strong`
-  margin-left: 150px;
-  color: #000;
+  height: 35px;
+  color: #7159c1;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;
 `;
