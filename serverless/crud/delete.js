@@ -27,6 +27,11 @@ module.exports.delete = (event, context, callback) => {
         return callback(null, {
             statusCode: 200,
             body: JSON.stringify({ ok: true }),
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': true,
+            }
         });
     });
 };

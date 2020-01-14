@@ -18,7 +18,8 @@ module.exports.update = (event, context, callback) => {
         return callback(null, {
             statusCode: 400,
             headers: {
-                'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Credentials': true,
             },
             body: { error: 'Error in fields validation.' }
@@ -45,7 +46,8 @@ module.exports.update = (event, context, callback) => {
             return callback(null, {
                 statusCode: 400,
                 headers: {
-                    'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*',
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
                     'Access-Control-Allow-Credentials': true,
                 },
                 body: { error: 'Error in update user.' }
@@ -55,6 +57,11 @@ module.exports.update = (event, context, callback) => {
         callback(null, {
             statusCode: 200,
             body: JSON.stringify(result.Attributes),
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': true,
+            }
         });
     });
 };
