@@ -1,24 +1,4 @@
-import styled, { keyframes, css } from 'styled-components';
-
-export const Container = styled.div`
-  max-width: 700px;
-  background: #fff;
-  border-radius: 4px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  padding: 30px;
-  margin: 80px;
-
-  h1 {
-    font-size: 20px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-
-    svg {
-      margin-right: 10px;
-    }
-  }
-`;
+import styled, { keyframes, css } from "styled-components";
 
 export const Form = styled.form`
   margin-top: 30px;
@@ -46,7 +26,7 @@ const rotate = keyframes`
 `;
 
 export const SubmitButton = styled.button.attrs(props => ({
-  disabled: props.loading,
+  disabled: props.loading
 }))`
   background: #fff;
   border-width: 1px;
@@ -63,7 +43,7 @@ export const SubmitButton = styled.button.attrs(props => ({
   font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;
 
-  :hover{
+  :hover {
     border: none;
     background: #7159c1;
     color: #fff;
