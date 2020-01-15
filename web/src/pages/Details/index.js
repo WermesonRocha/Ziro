@@ -7,7 +7,8 @@ import pt from "date-fns/locale/pt";
 import api from "../../services/api";
 
 import Container from "../../components/Container";
-import { Loading, User } from "./styles.js";
+import Loader from "../../components/Loader";
+import { User } from "./styles.js";
 
 export default function Details({ match }) {
   const [user, setUser] = useState({});
@@ -26,7 +27,7 @@ export default function Details({ match }) {
   return (
     <>
       {loading ? (
-        <Loading>Carregando</Loading>
+        <Loader>Carregando</Loader>
       ) : (
         <Container>
           <User>
@@ -37,6 +38,13 @@ export default function Details({ match }) {
             <h3>
               {`Criado em: ${format(
                 user.created_at,
+                "dd 'de' MMMM', às' H:mm'h'",
+                { locale: pt }
+              )}`}
+            </h3>
+            <h3>
+              {`Atualizado em: ${format(
+                user.updated_at,
                 "dd 'de' MMMM', às' H:mm'h'",
                 { locale: pt }
               )}`}

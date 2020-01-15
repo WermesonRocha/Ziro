@@ -5,6 +5,7 @@ const AWS = require('aws-sdk'); // eslint-disable-line import/no-extraneous-depe
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
 module.exports.update = (event, context, callback) => {
+    const timestamp = new Date().getTime();
     const data = JSON.parse(event.body);
     let first_name = (data.first_name);
     let last_name = (data.last_name);
@@ -31,12 +32,13 @@ module.exports.update = (event, context, callback) => {
         Key: {
             id: event.pathParameters.id,
         },
-        UpdateExpression: 'SET first_name = :first, last_name = :last, email = :email, age = :age',
+        UpdateExpression: 'SET first_name = :first, last_name = :last, email = :email, age = :age, updated_at = :updated',
         ExpressionAttributeValues: {
             ':first': first_name,
             ':last': last_name,
             ':email': email,
             ':age': age,
+            ':updated': timestamp
         },
         ReturnValues: 'UPDATED_NEW',
     };
