@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { FaPenSquare, FaSpinner } from "react-icons/fa";
 
@@ -85,48 +85,54 @@ export default function Update({ match }) {
   return (
     <>
       {loading ? (
-        <h1>Carregando</h1>
+        <Loader>
+          <FaSpinner color="#FFF" size={100} />
+          <strong>Carregando</strong>
+        </Loader>
       ) : (
-        <Container>
-          <h1>
-            <FaPenSquare />
-            Atualizar Usuário
-          </h1>
+        <>
+          <Container>
+            <h1>
+              <FaPenSquare />
+              Atualizar Usuário
+              <Link to={`/details/${user.id}`}>Voltar aos detalhes</Link>
+            </h1>
 
-          <Form onSubmit={e => handleSubmit(e)}>
-            <input
-              type="text"
-              placeholder="Nome"
-              onChange={e => handleNameChange(e)}
-              value={firstName}
-            />
-            <input
-              type="text"
-              placeholder="Sobrenome"
-              onChange={e => handleLastNameChange(e)}
-              value={lastName}
-            />
-            <input
-              type="text"
-              placeholder="Email"
-              onChange={e => handleEmailChange(e)}
-              value={email}
-            />
-            <input
-              type="text"
-              placeholder="Idade"
-              onChange={e => handleAgeChange(e)}
-              value={age}
-            />
-            <SubmitButton type="submit" loading={loading}>
-              {loading ? (
-                <FaSpinner color="#FFF" size={14} />
-              ) : (
-                "Atualizar Usuário"
-              )}
-            </SubmitButton>
-          </Form>
-        </Container>
+            <Form onSubmit={e => handleSubmit(e)}>
+              <input
+                type="text"
+                placeholder="Nome"
+                onChange={e => handleNameChange(e)}
+                value={firstName}
+              />
+              <input
+                type="text"
+                placeholder="Sobrenome"
+                onChange={e => handleLastNameChange(e)}
+                value={lastName}
+              />
+              <input
+                type="text"
+                placeholder="Email"
+                onChange={e => handleEmailChange(e)}
+                value={email}
+              />
+              <input
+                type="text"
+                placeholder="Idade"
+                onChange={e => handleAgeChange(e)}
+                value={age}
+              />
+              <SubmitButton type="submit" loading={loading}>
+                {loading ? (
+                  <FaSpinner color="#FFF" size={14} />
+                ) : (
+                  "Atualizar Usuário"
+                )}
+              </SubmitButton>
+            </Form>
+          </Container>
+        </>
       )}
     </>
   );

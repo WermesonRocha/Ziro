@@ -6,15 +6,19 @@ import { FaUser, FaSpinner } from "react-icons/fa";
 import Container from "../../components/Container";
 import Form from "../../components/Form";
 import SubmitButton from "../../components/SubmitButton";
+import Loader from "../../components/Loader";
 import { List, EmptyUsers } from "./styles";
 
 import api from "../../services/api";
+
+import validationSchema from "../../validators/form";
 
 const Main = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [age, setAge] = useState("");
+  const [loader, setLoader] = useState(true);
   const [loading, setLoading] = useState(false);
   const [users, setUsers] = useState([]);
 
@@ -50,12 +54,16 @@ const Main = () => {
       email,
       age: parseInt(age)
     };
-    const response = await api.post("/users", { ...user });
+    validationSchema.validate(user).catch(e => console.log(e));
+    if (!(await validationSchema.isValid(user))) {
+      console.log("Deu ruim");
+    }
+    /* const response = await api.post("/users", { ...user });
     user.id = response.data.id;
     user.created_at = response.data.created_at;
     setUsers([...users, user]);
     await localStorage.setItem("users", JSON.stringify([...users, user]));
-    resetProperties();
+    resetProperties(); */
     setLoading(false);
   };
 
@@ -64,14 +72,25 @@ const Main = () => {
       const resp = await api.get("users");
       setUsers([...resp.data]);
       await localStorage.setItem("users", JSON.stringify(resp.data));
+      setLoader(false);
     }
     const localUsers = localStorage.getItem("users");
     if (localUsers) {
       setUsers(JSON.parse(localUsers));
+      setLoader(false);
     } else {
       getAllUsers();
     }
   }, []);
+
+  if (loader) {
+    return (
+      <Loader>
+        <FaSpinner color="#FFF" size={100} />
+        <strong>Carregando</strong>
+      </Loader>
+    );
+  }
 
   return (
     <Container>
