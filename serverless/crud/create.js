@@ -36,7 +36,8 @@ module.exports.create = (event, context, callback) => {
             last_name,
             email,
             age,
-            created_at: timestamp
+            created_at: timestamp,
+            updated_at: timestamp
         },
     };
 

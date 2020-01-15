@@ -4,7 +4,9 @@ import { Link } from "react-router-dom";
 import { FaUser, FaSpinner } from "react-icons/fa";
 
 import Container from "../../components/Container";
-import { Form, SubmitButton, List, EmptyUsers } from "./styles";
+import Form from "../../components/Form";
+import SubmitButton from "../../components/SubmitButton";
+import { List, EmptyUsers } from "./styles";
 
 import api from "../../services/api";
 
