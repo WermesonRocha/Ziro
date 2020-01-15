@@ -36,10 +36,6 @@ export default function Details({ match }) {
         <Container>
           <User>
             <Link to="/">Voltar aos Usuários</Link>
-            <img
-              src="http://cdn.miscellaneoushi.com/1920x1080/20180518/5afe20fd23f6f.jpg"
-              alt={`${user.first_name}`}
-            />
             <h1>{`${user.first_name} ${user.last_name}`}</h1>
             <h2>{user.email}</h2>
             <h3>

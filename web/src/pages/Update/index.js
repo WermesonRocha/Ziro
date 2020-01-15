@@ -47,10 +47,10 @@ export default function Update({ match }) {
     setLoading(true);
     const newUser = {
       id: user.id,
-      first_name: firstName,
-      last_name: lastName,
-      email,
-      age: parseInt(age)
+      first_name: firstName || user.first_name,
+      last_name: lastName || user.last_name,
+      email: email || user.email,
+      age: parseInt(age) || user.age
     };
     const response = await api.put(`/users/${user.id}`, { ...newUser });
     newUser.created_at = response.data.created_at;
