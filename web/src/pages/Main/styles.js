@@ -23,7 +23,7 @@ export const List = styled.ul`
 `;
 
 export const EmptyUsers = styled.strong`
-  margin-left: 150px;
+  margin-left: 35%;
   color: #000;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;

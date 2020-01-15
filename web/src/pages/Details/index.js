@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { FaSpinner } from "react-icons/fa";
 import PropTypes from "prop-types";
 import { format } from "date-fns";
 import pt from "date-fns/locale/pt";
@@ -27,12 +28,14 @@ export default function Details({ match }) {
   return (
     <>
       {loading ? (
-        <Loader>Carregando</Loader>
+        <Loader>
+          <FaSpinner color="#FFF" size={100} />
+          <strong>Carregando</strong>
+        </Loader>
       ) : (
         <Container>
           <User>
             <Link to="/">Voltar aos Usuários</Link>
-            <img src="" alt={`${user.first_name}`} />
             <h1>{`${user.first_name} ${user.last_name}`}</h1>
             <h2>{user.email}</h2>
             <h3>

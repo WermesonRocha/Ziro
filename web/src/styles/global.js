@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 
 // Definindo um estilo global para todos os componentes da aplicação
 // box-sizing => Faz com que todas as propriedades aplicadas (margin, padding, etc) sejam somadas com as propriedades do elemento

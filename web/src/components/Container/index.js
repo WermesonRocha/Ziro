@@ -6,8 +6,9 @@ const Container = styled.div`
   border-radius: 4px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   padding: 30px;
-  margin-top: 2%;
-  margin-left: 30%;
+  margin-top: 3%;
+  margin-left: 26%;
+  margin-right: 20%;
 
   h1 {
     font-size: 20px;
@@ -17,6 +18,13 @@ const Container = styled.div`
 
     svg {
       margin-right: 10px;
+    }
+
+    a {
+      font-size: 16px;
+      text-align: center;
+      text-decoration: none;
+      padding: 25px;
     }
   }
 `;
