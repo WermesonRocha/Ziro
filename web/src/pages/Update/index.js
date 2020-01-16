@@ -10,6 +10,8 @@ import Form from "../../components/Form";
 import SubmitButton from "../../components/SubmitButton";
 import Loader from "../../components/Loader";
 
+import { updateUserInLocalStorage } from "../../utils";
+
 export default function Update({ match }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -53,13 +55,11 @@ export default function Update({ match }) {
       age: parseInt(age) || user.age
     };
     const response = await api.put(`/users/${user.id}`, { ...newUser });
-    newUser.created_at = response.data.created_at;
-    newUser.updated_at = response.data.updated_at;
-    const localUsers = JSON.parse(localStorage.getItem("users")).filter(
-      u => u.id !== newUser.id
-    );
-    localUsers.push(newUser);
-    await localStorage.setItem("users", JSON.stringify(localUsers));
+    if (response.status === 200) {
+      newUser.created_at = response.data.created_at;
+      newUser.updated_at = response.data.updated_at;
+      await updateUserInLocalStorage(newUser);
+    }
     resetProperties();
     setUser(newUser);
     setLoading(false);

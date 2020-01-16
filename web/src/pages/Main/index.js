@@ -2,21 +2,23 @@ import React, { useState, useEffect } from "react";
 import * as Yup from "yup";
 import { Link } from "react-router-dom";
 
-import { FaUser, FaSpinner } from "react-icons/fa";
+import { FaUser, FaSpinner, FaTrashAlt } from "react-icons/fa";
 
 import Container from "../../components/Container";
 import Form from "../../components/Form";
 import SubmitButton from "../../components/SubmitButton";
 import Loader from "../../components/Loader";
 import ErrorMessage from "../../components/ErrorMessage";
-import InvalidFormMessage from "../../components/InvalidFormMessage";
+import InvalidMessage from "../../components/InvalidMessage";
 import { List, EmptyUsers } from "./styles";
 
 import api from "../../services/api";
 
 import validationSchema from "../../validators/form";
 
-const Main = () => {
+import { addUserInLocalStorage, deleteUserInLocalStorage } from "../../utils";
+
+export default function Main() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -25,6 +27,10 @@ const Main = () => {
   const [loading, setLoading] = useState(false);
   const [users, setUsers] = useState([]);
   const [errors, setErrors] = useState({});
+
+  function reload() {
+    window.location.reload(false);
+  }
 
   const handleNameChange = async e => {
     Yup.string()
@@ -82,6 +88,22 @@ const Main = () => {
     setAge(e.target.value);
   };
 
+  const handleDelete = async id => {
+    setLoader(true);
+    const response = await api.delete(`/users/${id}`);
+    if (response.status === 200) {
+      await deleteUserInLocalStorage(id);
+      reload();
+    } else {
+      setErrors({
+        ...errors,
+        submit:
+          "Ocorreu um erro durante a exclusão do usuário. Verifique sua conexão e tente novamente."
+      });
+    }
+    setLoader(false);
+  };
+
   const resetProperties = () => {
     setFirstName("");
     setLastName("");
@@ -100,14 +122,26 @@ const Main = () => {
       age: parseInt(age)
     };
     if (!(await validationSchema.isValid(user))) {
-      setErrors({ ...errors, submit: true });
+      setErrors({
+        ...errors,
+        submit: "O formulário deve ser preenchido corretamente !"
+      });
     }
     const response = await api.post("/users", { ...user });
-    user.id = response.data.id;
-    user.created_at = response.data.created_at;
-    setUsers([...users, user]);
-    await localStorage.setItem("users", JSON.stringify([...users, user]));
-    resetProperties();
+    if (response.status === 200) {
+      user.id = response.data.id;
+      user.created_at = response.data.created_at;
+      user.updated_at = response.data.updated_at;
+      setUsers([...users, user]);
+      await addUserInLocalStorage([...users, user]);
+      resetProperties();
+    } else {
+      setErrors({
+        ...errors,
+        submit:
+          "Ocorreu um erro ao adicionar o usuário. Verifique sua conexão e tente novamente."
+      });
+    }
     setLoading(false);
   };
 
@@ -143,11 +177,7 @@ const Main = () => {
         Usuários
       </h1>
 
-      {errors.submit && (
-        <InvalidFormMessage>
-          O formulário deve ser preenchido corretamente !
-        </InvalidFormMessage>
-      )}
+      {errors.submit && <InvalidMessage>errors.submit</InvalidMessage>}
 
       <Form onSubmit={e => handleSubmit(e)}>
         <input
@@ -188,6 +218,9 @@ const Main = () => {
             <li key={user.id}>
               <span>{`${user.first_name} ${user.last_name}`}</span>
               <Link to={`/details/${user.id}`}>Detalhes</Link>
+              <a title="Excluir" onClick={() => handleDelete(user.id)}>
+                <FaTrashAlt />
+              </a>
             </li>
           ))}
         </List>
@@ -199,6 +232,4 @@ const Main = () => {
       )}
     </Container>
   );
-};
-
-export default Main;
+}
