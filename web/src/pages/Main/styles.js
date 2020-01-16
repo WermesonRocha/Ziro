@@ -4,6 +4,12 @@ export const List = styled.ul`
   list-style: none;
   margin-top: 30px;
 
+  span {
+    color: #7159c1;
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
   li {
     padding: 15px 0;
     display: flex;
@@ -18,6 +24,7 @@ export const List = styled.ul`
     a {
       color: #7159c1;
       text-decoration: none;
+      cursor: pointer;
     }
   }
 `;

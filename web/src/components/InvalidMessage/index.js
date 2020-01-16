@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-const InvalidFormMessage = styled.div`
+const InvalidMessage = styled.div`
   margin-top: 15px;
-  height: 25px;
+  max-height: 50px;
   border-radius: 20px;
   background: #d9534f;
   opacity: 0.5;
@@ -12,6 +12,7 @@ const InvalidFormMessage = styled.div`
   font-weight: bold;
   text-align: center;
   padding: 5px;
+  flex: 1;
 `;
 
-export default InvalidFormMessage;
+export default InvalidMessage;
